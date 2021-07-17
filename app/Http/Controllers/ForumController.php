@@ -10,6 +10,10 @@ use Auth;
 
 class ForumController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +21,8 @@ class ForumController extends Controller
      */
     public function index()
     {
-        //
+        $forums=Forum::paginate(5);
+        return view('forum.index', compact('forums'));
     }
 
     /**
@@ -40,6 +45,14 @@ class ForumController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title'=>'required',
+            'description'=>'required',
+            'tags'=>'required',
+            'image'=>'image|mimes:jpg,jpeg,png|max:1024'
+        ]);
+
+
         $forums=New Forum;
         $forums->user_id=Auth::user()->id;
         $forums->title=$request->title;
@@ -56,7 +69,7 @@ class ForumController extends Controller
 
         $forums->tags()->sync($request->tags);
 
-        return back();
+        return back()->withInfo('Pertanyaan Berhasil di Kirim!');
     }
 
     /**
@@ -92,6 +105,13 @@ class ForumController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title'=>'required',
+            'description'=>'required',
+            'tags'=>'required',
+            'image'=>'image|mimes:jpg,jpeg,png|max:1024'
+        ]);
+
         $forums=Forum::find($id);
         $forums->user_id=Auth::user()->id;
         $forums->title=$request->title;
@@ -112,7 +132,7 @@ class ForumController extends Controller
 
         $forums->tags()->sync($request->tags);
 
-        return back();
+        return back()->withInfo('Pertanyaan Berhasil di Update!');
     }
 
     /**

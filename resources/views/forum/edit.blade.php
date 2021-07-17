@@ -32,12 +32,16 @@
                           <div class="form-group">
                              <input type="file" class="form-control" name="image" placeholder="image" style="background-color: #f5f8fa;"> 
                                 </div>
-                            </div>  
+                            </div>
+                            @if (empty($forum->image))  
+                                <b><i class="fa fa-info-circle"></i> Tidak terdapat gambar pada postingan ini!</b>
+                            @else
                             <div class="form-group">
                                <div class="col-md-4"> 
                                <img src="{{asset('images/'.$forum->image)}}" alt="" width="100%">
                                </div>
                            </div> 
+                           @endif
                           </div>
                            <br> 
                       <button type="submit" class="btn btn-success btn-block">Submit</button>
