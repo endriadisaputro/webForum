@@ -27,8 +27,9 @@ class ForumController extends Controller
      */
     public function create()
     {
+        $forums=Forum::orderBy('id','desc')->paginate(1);
         $tags=Tag::all();
-        return view('forum.create', compact('tags'));
+        return view('forum.create', compact('tags','forums'));
     }
 
     /**
@@ -77,8 +78,9 @@ class ForumController extends Controller
      */
     public function edit($id)
     {
+        $tags=Tag::all();
         $forum=Forum::find($id);
-        return view('forum.edit', compact('forum'));
+        return view('forum.edit', compact('forum','tags'));
     }
 
     /**
@@ -107,6 +109,8 @@ class ForumController extends Controller
             $forums->image=$filename;
         }
         $forums->save();
+
+        $forums->tags()->sync($request->tags);
 
         return back();
     }
