@@ -22,7 +22,7 @@ class ForumController extends Controller
     public function index()
     {
         $forums=Forum::paginate(5);
-        return view('forum.index', compact('forums'));
+        return view('forum.index', compact('forums'));  
     }
 
     /**
@@ -78,9 +78,12 @@ class ForumController extends Controller
      * @param  \App\Models\Forum  $forum
      * @return \Illuminate\Http\Response
      */
-    public function show(Forum $forum)
+    public function show($slug)
     {
-        //
+        $forums=Forum::where('id', $slug)
+                ->orWhere('slug', $slug)
+                ->firstOrFail();
+        return view('forum.show', compact('forums'));
     }
 
     /**

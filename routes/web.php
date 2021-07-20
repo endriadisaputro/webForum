@@ -29,3 +29,5 @@ Route::resource('/forum', 'App\Http\Controllers\ForumController');
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
      \UniSharp\LaravelFilemanager\Lfm::routes();
  });
+
+Route::get('/forum/read/{slug}', 'App\Http\Controllers\ForumController@show')->name('forumslug');

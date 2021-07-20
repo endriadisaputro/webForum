@@ -32,7 +32,7 @@
                           <tr> 
                             <td width="453">
                               <div class="forum_title">
-                                <h4><a href="#">{{ Str::limit($forum->title, 40)}}</a></h4>
+                                <h4><a href="{{route('forum.show', $forum->slug)}}">{{ Str::limit($forum->title, 40)}}</a></h4>
                                 <p>{{ Str::limit($forum->description, 50)}}</p>
                                 @foreach($forum->tags as $tag) 
                                 <a href="#" class="badge badge-success tag_label">{{$tag->name}}</a>
@@ -59,7 +59,7 @@
                       </table>
                  <!-- pagination -->
                  <div class="row justify-content-center">
-                  {!! $forums->links() !!}
+                  {!! $forums->links('pagination::bootstrap-4') !!}
                  </div>
                     </div>
                     <div class="col-md-4"> <br>
