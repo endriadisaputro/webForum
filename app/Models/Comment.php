@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Forum extends Model
+class Comment extends Model
 {
     use HasFactory;
-    public function tags()
+    public function commentable()
     {
-    	return $this->belongsToMany('App\Models\Tag');
+        return $this->morphTo();
     }
     public function user()
     {
