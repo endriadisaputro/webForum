@@ -23,7 +23,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Route::get('/forum/create', [App\Http\Controllers\ForumController::class,'create']);
 Route::resource('/forum', 'App\Http\Controllers\ForumController');
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
@@ -36,3 +35,5 @@ Route::post('/comment/replyComment/{comment}', 'App\Http\Controllers\CommentCont
 
 Route::get('/populars', 'App\Http\Controllers\ForumController@populars')->name('populars');
 Route::get('/user/{user}', 'App\Http\Controllers\ProfileController@index')->name('profile');
+
+Route::resource('/tag', 'App\Http\Controllers\TagController');

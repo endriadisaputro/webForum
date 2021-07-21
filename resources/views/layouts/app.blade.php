@@ -40,6 +40,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto" id="nav_ul">
                     <li><a class="nav-link" href="{{ route('forum.index') }}">{{ __('Forum') }}</a></li>
+                    <li><a class="nav-link" href="{{ route('tag.index') }}">{{ __('Tags') }}</a></li>
 
                    </ul> 
                     <!-- Right Side Of Navbar -->
