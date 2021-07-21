@@ -92,9 +92,11 @@
         <main class="py-4"> 
             <div class="container">
                 @include('layouts.info')               
-            </div>
+            
 
             @yield('content')
+            @include('layouts.footer')
+            </div>
  
         </main>
     </div>

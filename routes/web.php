@@ -33,3 +33,5 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 Route::get('/forum/read/{slug}', 'App\Http\Controllers\ForumController@show')->name('forumslug');
 Route::post('/comment/addComment/{forum}', 'App\Http\Controllers\CommentController@addComment')->name('addComment');
 Route::post('/comment/replyComment/{comment}', 'App\Http\Controllers\CommentController@replyComment')->name('replyComment');
+
+Route::get('/populars', 'App\Http\Controllers\ForumController@populars')->name('populars');
