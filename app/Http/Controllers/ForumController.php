@@ -83,6 +83,9 @@ class ForumController extends Controller
         $forums=Forum::where('id', $slug)
                 ->orWhere('slug', $slug)
                 ->firstOrFail();
+
+        views($forums)->record();
+
         return view('forum.show', compact('forums'));
     }
 
