@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Auth;
 use DB;
+use Storage;
 
 class ForumController extends Controller
 {
@@ -125,10 +126,14 @@ class ForumController extends Controller
      * @param  \App\Models\Forum  $forum
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
         $tags=Tag::all();
-        $forum=Forum::find($id);
+        
+        $forum=Forum::where('id', $slug)
+                ->orWhere('slug', $slug)
+                ->firstOrFail();
+
         return view('forum.edit', compact('forum','tags'));
     }
 
@@ -177,8 +182,12 @@ class ForumController extends Controller
      * @param  \App\Models\Forum  $forum
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Forum $forum)
+    public function destroy($id)
     {
-        //
+        $forum=Forum::find($id);
+        Storage::delete($forum->image);
+        $forum->tags()->detach();
+        $forum->delete();
+        return back()->withInfo('Pertanyaan berhasil di Hapus !!');
     }
 }

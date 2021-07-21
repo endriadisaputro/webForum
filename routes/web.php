@@ -35,3 +35,4 @@ Route::post('/comment/addComment/{forum}', 'App\Http\Controllers\CommentControll
 Route::post('/comment/replyComment/{comment}', 'App\Http\Controllers\CommentController@replyComment')->name('replyComment');
 
 Route::get('/populars', 'App\Http\Controllers\ForumController@populars')->name('populars');
+Route::get('/user/{user}', 'App\Http\Controllers\ProfileController@index')->name('profile');
