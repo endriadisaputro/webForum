@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tag;
+use App\Models\Forum;
 use Str;
 use DB;
 
@@ -23,6 +24,7 @@ class TagController extends Controller
                     ->orderBy('count','desc')
                     ->take(5)
                     ->get();
+
         $tags=Tag::all();
         return view('tag.index',compact('tags','populars'));
     }
@@ -60,9 +62,23 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $populars=DB::table('forums')
+                    ->join('views','forums.id','=','views.viewable_id')
+                    ->select(DB::raw('count(viewable_id) as count'),'forums.id','forums.title','forums.slug')
+                    ->groupBy('id','title','slug')
+                    ->orderBy('count','desc')
+                    ->take(5)
+                    ->get();
+
+        $tags=Tag::where('id', $slug)
+                ->orWhere('slug', $slug)
+                ->firstOrFail();
+
+        views($tags)->record();
+
+        return view('tag.show', compact('tags','populars'));
     }
 
     /**
